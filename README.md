@@ -77,6 +77,18 @@ The following people and resources have contributed a non-trivial amount to the 
 * [AoE2 wiki](https://ageofempires.fandom.com/wiki/Age_of_Empires_II:_The_Age_of_Kings): A lot of extra information for the resources was extracted from this site
 
 
+## Fork maintenance and modifications
+This repository is a fork of [Jvinniec/aoe2-aiscript](https://github.com/Jvinniec/aoe2-aiscript), originally developed by Jvinniec.
+
+**Modifications by BalSla (2026):**
+
+- Added Outline navigation for `defconst` declarations and `defrule` blocks, including descriptive rule labels.
+- Added automated tests for document symbols.
+- Improved VS Code extension packaging and updated dependencies.
+
+The original project and this modified version are distributed under the GNU General Public License v3.0. See `LICENSE` for details.
+
+
 ## Release Notes
 Please refer to the [CHANGELOG](./CHANGELOG.md) for a reference of changes in this and previous releases.
 

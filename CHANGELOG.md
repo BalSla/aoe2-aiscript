@@ -3,6 +3,11 @@ All notable changes to the "aoe2-aiscript" extension will be documented in this 
 
     <major>.<minor>.<patch>
 
+## Unreleased
+- Add Outline navigation for `defconst` declarations and `defrule` blocks, including descriptive rule labels
+- Add automated tests for document symbols
+- Improve VS Code extension packaging and update dependencies
+
 ## v0.1.7
 - Rename 'cc-add-resources' to correct value of 'cc-add-resource' [#15]
 - Fix issue where `#load-X` like directives were not recognized in completions and signature help [#16]
