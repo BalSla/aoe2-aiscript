@@ -25,7 +25,7 @@ import {
 	WorkspaceFolder
 } from 'vscode-languageserver';
 
-import URI from 'vscode-uri'
+import { URI } from 'vscode-uri'
 
 // Import the needed methods and objects
 import {
@@ -36,6 +36,7 @@ import {
 
 import {AiScriptParser, AiScriptScope} from './aiScriptParser';
 import {AiScriptErr}    from './aiScriptErrorChecker'
+import {getDocumentSymbols} from './documentSymbols';
 
 // Create a connection for the server. The connection uses Node's IPC as a transport.
 // Also include all preview / proposed LSP features.
@@ -78,6 +79,7 @@ connection.onInitialize((params: InitializeParams) => {
 	return {
 		capabilities: {
 			textDocumentSync: documents.syncKind,
+			documentSymbolProvider: true,
 			// Tell the client that the server supports code completion
 			completionProvider: {resolveProvider: false},
 			
@@ -405,6 +407,11 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 connection.onDidChangeWatchedFiles(_change => {
 	// Monitored files have change in VSCode
 	connection.console.log('We received a file change event');
+});
+
+connection.onDocumentSymbol(params => {
+	let document = documents.get(params.textDocument.uri);
+	return document ? getDocumentSymbols(document) : [];
 });
 
 

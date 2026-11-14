@@ -1,6 +1,6 @@
 import {AiScriptPar, AiScriptType} from './aiScriptResources';
 import {readFileSync, readFile}  from 'fs';
-import {AiScriptErr, AiScriptErrorChecker} from './AiScriptErrorChecker'
+import {AiScriptErr, AiScriptErrorChecker} from './aiScriptErrorChecker'
 import { join } from 'path';
 import { URL } from 'url';
 

@@ -1,7 +1,7 @@
 # AoE2 AiScript
 
-[![Version](https://vsmarketplacebadge.apphb.com/version-short/jvinniec.aoe2-aiscript.svg)](https://marketplace.visualstudio.com/items?itemName=jvinniec.aoe2-aiscript)
-[![Installs](https://vsmarketplacebadge.apphb.com/installs/jvinniec.aoe2-aiscript.svg)](https://marketplace.visualstudio.com/items?itemName=jvinniec.aoe2-aiscript)
+[![Version](https://img.shields.io/visual-studio-marketplace/v/jvinniec.aoe2-aiscript)](https://marketplace.visualstudio.com/items?itemName=jvinniec.aoe2-aiscript)
+[![Installs](https://img.shields.io/visual-studio-marketplace/i/jvinniec.aoe2-aiscript)](https://marketplace.visualstudio.com/items?itemName=jvinniec.aoe2-aiscript)
 
 Age of Empires 2 AI script writing extension. This extension provides command/parameter tool-tips and auto-completion suggestions. It will also apply syntax highlighting to any `.per` files that are loaded in vscode providing a more visually appealing way to . See the 'Experimental Features' section for a list of additional features that are available.
 
@@ -24,6 +24,9 @@ See [this example](syntaxes/customizing_colors.md) for how to define your own co
 
 ### Snippets
 Snippets are also provided to quickly create new rules.
+
+### Outline
+The Outline view lists `defconst` declarations and `defrule` blocks in the current `.per` file, including unsaved edits. Rules are unnamed, so they are labeled `Rule 1`, `Rule 2`, and so on in file order. Select an entry to navigate to it.
 
 ### Experimental Features
 These are features that are considered good enough to be tested by people, but may still need some tweaking. By default experimental features are turned off to ensure the average person has a stable experience with the extension.
@@ -61,6 +64,9 @@ This is an alpha version after all, so there are going to be issues. For example
 Feel free to submit issues to the github repository, and I will try to look into them when I have time.
 
 Alternatively, for the real go-getters out there, you can fork the repository, make changes and submit a pull request!
+
+### Building a VSIX
+With Node.js 20.10 or newer and npm 9 or newer, run `npm ci` and `npm ci --prefix languageExtension` once to install the dependencies. In VS Code, run **Tasks: Run Task** and select **Package extension VSIX**, or run `npm run package` in a terminal. The task compiles the extension and creates a `.vsix` file in the repository root. Install it through **Extensions: Install from VSIX** and reload VS Code.
 
 ### Contributors/Resources
 The following people and resources have contributed a non-trivial amount to the development of this extension. Seriously, this extension would not be as good as it is without them:
