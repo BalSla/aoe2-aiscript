@@ -55,9 +55,28 @@ function testParser() {
         '(defconst) (defconst "not-a-name" 1) ("x" defrule) ((defrule)) ; (defrule)'
     )), []);
 
+    const labeledRules = document([
+        '(defrule ;Show AI_VERSION',
+        '  (true) => (disable-self))',
+        '(defrule',
+        '  ; Show game time  ',
+        '  (true) => (disable-self))',
+        '(defrule ;   ',
+        '  (true) => (disable-self))',
+        '(defrule (true) ; condition comment',
+        '  => (disable-self))',
+        '(defrule ;Last unfinished rule'
+    ].join('\r\n'));
+    const ruleSymbols = getDocumentSymbols(labeledRules);
+    assert.deepStrictEqual(ruleSymbols.map(symbol => symbol.name), [
+        'Show AI_VERSION', 'Show game time', 'Rule 3', 'Rule 4', 'Last unfinished rule'
+    ]);
+    assert.strictEqual(textAt(labeledRules, ruleSymbols[0].selectionRange), 'defrule');
+    assert.strictEqual(textAt(labeledRules, ruleSymbols[4].range), '(defrule ;Last unfinished rule');
+
     const sample = fs.readFileSync(path.join(__dirname, '../../samples/ai_sample.per'), 'utf8');
     assert.deepStrictEqual(getDocumentSymbols(document(sample)).map(symbol => symbol.name),
-        ['go-to-feudal', 'cur-game-time', 'Rule 1']);
+        ['go-to-feudal', 'cur-game-time', 'This is the start of a new rule']);
 }
 
 async function testServer() {
@@ -83,10 +102,10 @@ async function testServer() {
 
         connection.sendNotification('textDocument/didChange', {
             textDocument: { uri, version: 2 },
-            contentChanges: [{ text: '(defconst changed 1)\n(defrule (true) => (disable-self))' }]
+            contentChanges: [{ text: '(defconst changed 1)\n(defrule\n;Edited label\n(true) => (disable-self))' }]
         });
         symbols = await connection.sendRequest('textDocument/documentSymbol', { textDocument: { uri } });
-        assert.deepStrictEqual(symbols.map(symbol => symbol.name), ['changed', 'Rule 1']);
+        assert.deepStrictEqual(symbols.map(symbol => symbol.name), ['changed', 'Edited label']);
         connection.sendNotification('textDocument/didClose', { textDocument: { uri } });
         symbols = await connection.sendRequest('textDocument/documentSymbol', { textDocument: { uri } });
         assert.deepStrictEqual(symbols, []);

@@ -26,7 +26,7 @@ See [this example](syntaxes/customizing_colors.md) for how to define your own co
 Snippets are also provided to quickly create new rules.
 
 ### Outline
-The Outline view lists `defconst` declarations and `defrule` blocks in the current `.per` file, including unsaved edits. Rules are unnamed, so they are labeled `Rule 1`, `Rule 2`, and so on in file order. Select an entry to navigate to it.
+The Outline view lists `defconst` declarations and `defrule` blocks in the current `.per` file, including unsaved edits. A comment immediately after `defrule` (on the same line or the next line) labels the rule. Otherwise, rules are labeled `Rule 1`, `Rule 2`, and so on in file order. Select an entry to navigate to it.
 
 ### Experimental Features
 These are features that are considered good enough to be tested by people, but may still need some tweaking. By default experimental features are turned off to ensure the average person has a stable experience with the extension.

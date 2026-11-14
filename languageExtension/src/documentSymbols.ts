@@ -29,7 +29,7 @@ export function getDocumentSymbols(document: TextDocument): DocumentSymbol[] {
         let selectionStart: number;
         let selectionEnd: number;
         if (expression.head === 'defrule') {
-            name = 'Rule ' + expression.ruleNumber;
+            name = expression.name || 'Rule ' + expression.ruleNumber;
             kind = SymbolKind.Function;
             selectionStart = expression.headStart;
             selectionEnd = expression.headEnd;
@@ -52,8 +52,13 @@ export function getDocumentSymbols(document: TextDocument): DocumentSymbol[] {
     while (i < text.length) {
         const char = text[i];
         if (char === ';') {
+            const start = i;
             while (i < text.length && text[i] !== '\n' && text[i] !== '\r') {
                 i++;
+            }
+            if (depth === 1 && expression && expression.head === 'defrule' &&
+                /^\s*$/.test(text.substring(expression.headEnd, start))) {
+                expression.name = text.substring(start + 1, i).trim();
             }
         } else if (char === '"') {
             if (depth === 1 && expression) {
